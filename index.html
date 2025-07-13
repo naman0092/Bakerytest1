@@ -6,6 +6,7 @@
     <title>Sweet Delights Bakery</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Cart Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -15,7 +16,7 @@
             background-color: #f8f8f8; /* Light gray background */
         }
         .hero-section {
-            /* Updated with a sample dessert image for the hero background */
+            /* Background image for the hero section */
             background-image: url('https://images.unsplash.com/photo-1558961363-fa1fdf82fad3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
@@ -39,13 +40,12 @@
         }
         .menu-item-card {
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            position: relative; /* Needed for out-of-stock overlay */
+            position: relative;
         }
         .menu-item-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
-        /* Removed .out-of-stock styles as all items are now in stock */
 
         /* Modal Styling */
         .modal {
@@ -206,7 +206,7 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="md:hidden hidden">
             <a href="#home" class="block text-gray-300 hover:text-white px-4 py-2 rounded-md">Home</a>
-            <a href="#menu" class="block text-gray-300 hover:text-white px-4 py-2 rounded-md">Menu</a>
+            <a href="#menu" class="block text-gray-300 hover:text-white px-4 py-2 rounded-md">Our Menu</a>
             <a href="#video-story" class="block text-gray-300 hover:text-white px-4 py-2 rounded-md">Our Story</a>
             <a href="#about" class="block text-gray-300 hover:text-white px-4 py-2 rounded-md">About Us</a>
             <a href="#pre-order" class="block text-gray-300 hover:text-white px-4 py-2 rounded-md">Pre-order</a>
@@ -231,290 +231,255 @@
             <!-- Jar Cakes & Puddings -->
             <h3 class="text-3xl font-semibold text-gray-800 mb-6 mt-10">Jar Cakes & Puddings</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Menu Item 1 -->
+                <!-- Menu Item 1: Red Velvet Jar Cake -->
                 <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="red-velvet-jar-cake">
-                    <img src="data:image/jpeg;base64,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" alt="Red Velvet Jar Cake" class="w-36 h-36 object-cover rounded-full mb-4">
-                    <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Red Velvet Jar Cake">Red Velvet Jar Cake</h4>
-                    <p class="text-gray-600 mb-4">Layers of moist red velvet cake and creamy cheese frosting.</p>
-                    <span class="text-orange-600 font-semibold text-lg mb-4" data-price="149.50">₹149.50</span>
-                    <div class="add-to-cart-container w-full">
-                        <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 w-full">Add to Cart</button>
-                        <div class="quantity-controls hidden flex items-center justify-center space-x-2 bg-orange-500 text-white font-bold py-2 px-4 rounded-full">
-                            <button class="qty-btn decrease-qty" data-item-id="red-velvet-jar-cake">-</button>
-                            <span class="qty-display" data-item-id="red-velvet-jar-cake">1</span>
-                            <button class="qty-btn increase-qty" data-item-id="red-velvet-jar-cake">+</button>
-                        </div>
-                    </div>
+                    <img src="https://drive.google.com/file/d/1LUH5fYpzPFuH431vi9YZKFjRAnP9opm0/view?usp=drive_link" alt="Red Velvet Jar Cake" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-2">Red Velvet Jar Cake</h4>
+                    <p class="text-gray-700 mb-4 flex-grow">Layers of moist red velvet cake and creamy cheese frosting in a convenient jar.</p>
+                    <p class="text-orange-600 font-bold text-xl mb-4">$6.99</p>
+                    <button class="add-to-cart-btn quantity-control-btn w-full px-6 py-3 text-lg rounded-full">Add to Cart</button>
                 </div>
-                <!-- Menu Item 2 -->
-                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="classic-tiramisu-jar">
-                    <img src="https://thumbs.dreamstime.com/b/classic-tiramisu-dessert-cocoa-powder-top-served-jar-217923285.jpg" alt="Tiramisu Jar" class="w-36 h-36 object-cover rounded-full mb-4">
-                    <div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Classic Tiramisu Jar">Classic Tiramisu Jar</h4>
-                        <p class="text-gray-600 mb-4">Espresso-soaked ladyfingers with mascarpone cream and cocoa.</p>
-                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="161.00">₹161.00</span>
-                        <div class="add-to-cart-container w-full">
-                            <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 w-full">Add to Cart</button>
-                            <div class="quantity-controls hidden flex items-center justify-center space-x-2 bg-orange-500 text-white font-bold py-2 px-4 rounded-full">
-                                <button class="qty-btn decrease-qty" data-item-id="classic-tiramisu-jar">-</button>
-                                <span class="qty-display" data-item-id="classic-tiramisu-jar">1</span>
-                                <button class="qty-btn increase-qty" data-item-id="classic-tiramisu-jar">+</button>
-                            </div>
-                        </div>
-                    </div>
+
+                <!-- Menu Item 2: Mango Cheesecake Jar -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="mango-cheesecake-jar">
+                    <img src="https://drive.google.com/file/d/1_1Z17dF6T3wMf8m0nfYZKUEVPHLGOkqE/view?usp=drive_link" alt="Mango Cheesecake Jar" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-2">Mango Cheesecake Jar</h4>
+                    <p class="text-gray-700 mb-4 flex-grow">Creamy cheesecake with a luscious mango swirl, perfect for a tropical treat.</p>
+                    <p class="text-orange-600 font-bold text-xl mb-4">$7.49</p>
+                    <button class="add-to-cart-btn quantity-control-btn w-full px-6 py-3 text-lg rounded-full">Add to Cart</button>
                 </div>
-                <!-- Menu Item 3 -->
-                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="mango-panna-cotta">
-                    <img src="https://images.unsplash.com/photo-1579735414322-297d2e2e2e2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Mango Panna Cotta" class="w-36 h-36 object-cover rounded-full mb-4">
-                    <div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Mango Panna Cotta">Mango Panna Cotta</h4>
-                        <p class="text-gray-600 mb-4">Silky smooth Italian pudding with fresh mango puree.</p>
-                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="155.25">₹155.25</span>
-                        <div class="add-to-cart-container w-full">
-                            <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 w-full">Add to Cart</button>
-                            <div class="quantity-controls hidden flex items-center justify-center space-x-2 bg-orange-500 text-white font-bold py-2 px-4 rounded-full">
-                                <button class="qty-btn decrease-qty" data-item-id="mango-panna-cotta">-</button>
-                                <span class="qty-display" data-item-id="mango-panna-cotta">1</span>
-                                <button class="qty-btn increase-qty" data-item-id="mango-panna-cotta">+</button>
-                            </div>
-                        </div>
-                    </div>
+
+                <!-- Menu Item 3: Blueberry Cheesecake Jar -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="blueberry-cheesecake-jar">
+                    <img src="https://drive.google.com/file/d/11rpps9NYLg9i4VQm0CrtmvIN_6T75prN/view?usp=drive_link" alt="Blueberry Cheesecake Jar" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-2">Blueberry Cheesecake Jar</h4>
+                    <p class="text-gray-700 mb-4 flex-grow">Classic cheesecake topped with a vibrant blueberry compote in a convenient jar.</p>
+                    <p class="text-orange-600 font-bold text-xl mb-4">$7.49</p>
+                    <button class="add-to-cart-btn quantity-control-btn w-full px-6 py-3 text-lg rounded-full">Add to Cart</button>
+                </div>
+
+                <!-- Menu Item 4: Chocolate Mousse Jar -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="chocolate-mousse-jar">
+                    <img src="https://placehold.co/300x200/8B4513/FFFFFF?text=Chocolate+Mousse" alt="Chocolate Mousse Jar" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-2">Chocolate Mousse Jar</h4>
+                    <p class="text-gray-700 mb-4 flex-grow">Rich, airy chocolate mousse layered for a delightful individual dessert.</p>
+                    <p class="text-orange-600 font-bold text-xl mb-4">$6.79</p>
+                    <button class="add-to-cart-btn quantity-control-btn w-full px-6 py-3 text-lg rounded-full">Add to Cart</button>
                 </div>
             </div>
 
-            <!-- Cookies & Pastries -->
-            <h3 class="text-3xl font-semibold text-gray-800 mb-6 mt-10">Cookies & Pastries</h3>
+            <!-- Cakes -->
+            <h3 class="text-3xl font-semibold text-gray-800 mb-6 mt-10">Cakes</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Menu Item 4 -->
-                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="giant-chocolate-chip-cookie">
-                    <img src="https://images.unsplash.com/photo-1598214886806-c87d7b7e7e7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Chocolate Chip Cookie" class="w-36 h-36 object-cover rounded-full mb-4">
-                    <div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Giant Chocolate Chip Cookie">Giant Chocolate Chip Cookie</h4>
-                        <p class="text-gray-600 mb-4">Warm, gooey, and loaded with chocolate chips.</p>
-                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="80.50">₹80.50</span>
-                        <div class="add-to-cart-container w-full">
-                            <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 w-full">Add to Cart</button>
-                            <div class="quantity-controls hidden flex items-center justify-center space-x-2 bg-orange-500 text-white font-bold py-2 px-4 rounded-full">
-                                <button class="qty-btn decrease-qty" data-item-id="giant-chocolate-chip-cookie">-</button>
-                                <span class="qty-display" data-item-id="giant-chocolate-chip-cookie">1</span>
-                                <button class="qty-btn increase-qty" data-item-id="giant-chocolate-chip-cookie">+</button>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Menu Item 1: Classic Chocolate Cake -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="classic-chocolate-cake">
+                    <img src="https://placehold.co/300x200/654321/FFFFFF?text=Chocolate+Cake" alt="Classic Chocolate Cake" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-2">Classic Chocolate Cake</h4>
+                    <p class="text-gray-700 mb-4 flex-grow">Decadent chocolate cake with rich fudge frosting, a timeless favorite.</p>
+                    <p class="text-orange-600 font-bold text-xl mb-4">$35.00</p>
+                    <button class="add-to-cart-btn quantity-control-btn w-full px-6 py-3 text-lg rounded-full">Add to Cart</button>
                 </div>
-                <!-- Menu Item 5 -->
-                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="flaky-almond-croissant">
-                    <img src="https://images.unsplash.com/photo-1563805096-7e7e7e7e7e7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Almond Croissant" class="w-36 h-36 object-cover rounded-full mb-4">
-                    <div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Flaky Almond Croissant">Flaky Almond Croissant</h4>
-                        <p class="text-gray-600 mb-4">Buttery croissant filled with almond cream and toasted almonds.</p>
-                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="97.75">₹97.75</span>
-                        <div class="add-to-cart-container w-full">
-                            <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 w-full">Add to Cart</button>
-                            <div class="quantity-controls hidden flex items-center justify-center space-x-2 bg-orange-500 text-white font-bold py-2 px-4 rounded-full">
-                                <button class="qty-btn decrease-qty" data-item-id="flaky-almond-croissant">-</button>
-                                <span class="qty-display" data-item-id="flaky-almond-croissant">1</span>
-                                <button class="qty-btn increase-qty" data-item-id="flaky-almond-croissant">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Menu Item 6 -->
-                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="soft-oatmeal-raisin-cookie">
-                    <img src="https://images.unsplash.com/photo-1582236675545-2e2e2e2e2e2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Oatmeal Raisin Cookie" class="w-36 h-36 object-cover rounded-full mb-4">
-                    <div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Soft Oatmeal Raisin Cookie">Soft Oatmeal Raisin Cookie</h4>
-                        <p class="text-gray-600 mb-4">Chewy oatmeal cookies with plump raisins and a hint of cinnamon.</p>
-                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="69.00">₹69.00</span>
-                        <div class="add-to-cart-container w-full">
-                            <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 w-full">Add to Cart</button>
-                            <div class="quantity-controls hidden flex items-center justify-center space-x-2 bg-orange-500 text-white font-bold py-2 px-4 rounded-full">
-                                <button class="qty-btn decrease-qty" data-item-id="soft-oatmeal-raisin-cookie">-</button>
-                                <span class="qty-display" data-item-id="soft-oatmeal-raisin-cookie">1</span>
-                                <button class="qty-btn increase-qty" data-item-id="soft-oatmeal-raisin-cookie">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Menu Item 7 -->
-                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="fresh-blueberry-muffin">
-                    <img src="https://images.unsplash.com/photo-1596791240400-2e2e2e2e2e2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Blueberry Muffin" class="w-36 h-36 object-cover rounded-full mb-4">
-                    <div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Fresh Blueberry Muffin">Fresh Blueberry Muffin</h4>
-                        <p class="text-gray-600 mb-4">Light and fluffy muffin bursting with fresh blueberries.</p>
-                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="86.25">₹86.25</span>
-                        <div class="add-to-cart-container w-full">
-                            <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 w-full">Add to Cart</button>
-                            <div class="quantity-controls hidden flex items-center justify-center space-x-2 bg-orange-500 text-white font-bold py-2 px-4 rounded-full">
-                                <button class="qty-btn decrease-qty" data-item-id="fresh-blueberry-muffin">-</button>
-                                <span class="qty-display" data-item-id="fresh-blueberry-muffin">1</span>
-                                <button class="qty-btn increase-qty" data-item-id="fresh-blueberry-muffin">+</button>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Menu Item 2: Vanilla Bean Cake -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="vanilla-bean-cake">
+                    <img src="https://placehold.co/300x200/F0E68C/000000?text=Vanilla+Cake" alt="Vanilla Bean Cake" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-2">Vanilla Bean Cake</h4>
+                    <p class="text-gray-700 mb-4 flex-grow">Light and fluffy vanilla cake with creamy vanilla bean buttercream.</p>
+                    <p class="text-orange-600 font-bold text-xl mb-4">$32.00</p>
+                    <button class="add-to-cart-btn quantity-control-btn w-full px-6 py-3 text-lg rounded-full">Add to Cart</button>
                 </div>
             </div>
 
-            <!-- Specialty Desserts -->
-            <h3 class="text-3xl font-semibold text-gray-800 mb-6 mt-10">Specialty Desserts</h3>
+            <!-- Pastries -->
+            <h3 class="text-3xl font-semibold text-gray-800 mb-6 mt-10">Pastries</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Menu Item 8 -->
-                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="molten-chocolate-lava-cake">
-                    <img src="https://images.unsplash.com/photo-1560787313-2e2e2e2e2e2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Molten Lava Cake" class="w-36 h-36 object-cover rounded-full mb-4">
-                    <div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Molten Chocolate Lava Cake">Molten Chocolate Lava Cake</h4>
-                        <p class="text-gray-600 mb-4">Rich chocolate cake with a warm, gooey center, served with vanilla bean ice cream.</p>
-                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="218.50">₹218.50</span>
-                        <div class="add-to-cart-container w-full">
-                            <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 w-full">Add to Cart</button>
-                            <div class="quantity-controls hidden flex items-center justify-center space-x-2 bg-orange-500 text-white font-bold py-2 px-4 rounded-full">
-                                <button class="qty-btn decrease-qty" data-item-id="molten-chocolate-lava-cake">-</button>
-                                <span class="qty-display" data-item-id="molten-chocolate-lava-cake">1</span>
-                                <button class="qty-btn increase-qty" data-item-id="molten-chocolate-lava-cake">+</button>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Menu Item 1: Croissant -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="croissant">
+                    <img src="https://placehold.co/300x200/DAA520/000000?text=Croissant" alt="Croissant" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-2">Butter Croissant</h4>
+                    <p class="text-gray-700 mb-4 flex-grow">Flaky, buttery, and perfectly golden-brown, a classic French pastry.</p>
+                    <p class="text-orange-600 font-bold text-xl mb-4">$3.50</p>
+                    <button class="add-to-cart-btn quantity-control-btn w-full px-6 py-3 text-lg rounded-full">Add to Cart</button>
                 </div>
-                <!-- Menu Item 9 -->
-                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="new-york-style-cheesecake">
-                    <img src="https://images.unsplash.com/photo-1567620905765-e2e2e2e2e2e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Cheesecake" class="w-36 h-36 object-cover rounded-full mb-4">
-                    <div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="New York Style Cheesecake">New York Style Cheesecake</h4>
-                        <p class="text-gray-600 mb-4">Creamy cheesecake on a graham cracker crust, topped with berry compote.</p>
-                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="201.25">₹201.25</span>
-                        <div class="add-to-cart-container w-full">
-                            <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 w-full">Add to Cart</button>
-                            <div class="quantity-controls hidden flex items-center justify-center space-x-2 bg-orange-500 text-white font-bold py-2 px-4 rounded-full">
-                                <button class="qty-btn decrease-qty" data-item-id="new-york-style-cheesecake">-</button>
-                                <span class="qty-display" data-item-id="new-york-style-cheesecake">1</span>
-                                <button class="qty-btn increase-qty" data-item-id="new-york-style-cheesecake">+</button>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Menu Item 2: Pain au Chocolat -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="pain-au-chocolat">
+                    <img src="https://placehold.co/300x200/A0522D/FFFFFF?text=Pain+au+Chocolat" alt="Pain au Chocolat" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-2">Pain au Chocolat</h4>
+                    <p class="text-gray-700 mb-4 flex-grow">Flaky pastry filled with rich dark chocolate, a delightful treat.</p>
+                    <p class="text-orange-600 font-bold text-xl mb-4">$4.00</p>
+                    <button class="add-to-cart-btn quantity-control-btn w-full px-6 py-3 text-lg rounded-full">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Cookies & Brownies -->
+            <h3 class="text-3xl font-semibold text-gray-800 mb-6 mt-10">Cookies & Brownies</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Menu Item 1: Chocolate Chip Cookie -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="chocolate-chip-cookie">
+                    <img src="https://drive.google.com/file/d/1_-iMfAkCi2dvuRipYS2GGZcAmcboLbHo/view?usp=drive_link" alt="Chocolate Chip Cookie" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-2">Chocolate Chip Cookie</h4>
+                    <p class="text-gray-700 mb-4 flex-grow">Classic chewy chocolate chip cookies, baked to golden perfection.</p>
+                    <p class="text-orange-600 font-bold text-xl mb-4">$2.50</p>
+                    <button class="add-to-cart-btn quantity-control-btn w-full px-6 py-3 text-lg rounded-full">Add to Cart</button>
+                </div>
+                <!-- Menu Item 2: Fudge Brownie -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="fudge-brownie">
+                    <img src="https://placehold.co/300x200/4B3621/FFFFFF?text=Fudge+Brownie" alt="Fudge Brownie" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-2">Fudge Brownie</h4>
+                    <p class="text-gray-700 mb-4 flex-grow">Rich, dense, and intensely chocolatey fudge brownies.</p>
+                    <p class="text-orange-600 font-bold text-xl mb-4">$3.75</p>
+                    <button class="add-to-cart-btn quantity-control-btn w-full px-6 py-3 text-lg rounded-full">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Breads & Savories -->
+            <h3 class="text-3xl font-semibold text-gray-800 mb-6 mt-10">Breads & Savories</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Menu Item 1: Sourdough Loaf -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="sourdough-loaf">
+                    <img src="https://placehold.co/300x200/D2B48C/000000?text=Sourdough" alt="Sourdough Loaf" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-2">Artisan Sourdough Loaf</h4>
+                    <p class="text-gray-700 mb-4 flex-grow">Freshly baked sourdough with a crispy crust and soft, tangy interior.</p>
+                    <p class="text-orange-600 font-bold text-xl mb-4">$5.99</p>
+                    <button class="add-to-cart-btn quantity-control-btn w-full px-6 py-3 text-lg rounded-full">Add to Cart</button>
+                </div>
+                <!-- Menu Item 2: Spinach & Feta Swirl -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="spinach-feta-swirl">
+                    <img src="https://placehold.co/300x200/90EE90/000000?text=Spinach+Feta" alt="Spinach & Feta Swirl" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-2">Spinach & Feta Swirl</h4>
+                    <p class="text-gray-700 mb-4 flex-grow">Savory pastry filled with fresh spinach and crumbled feta cheese.</p>
+                    <p class="text-orange-600 font-bold text-xl mb-4">$4.50</p>
+                    <button class="add-to-cart-btn quantity-control-btn w-full px-6 py-3 text-lg rounded-full">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Beverages -->
+            <h3 class="text-3xl font-semibold text-gray-800 mb-6 mt-10">Beverages</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Menu Item 1: Freshly Brewed Coffee -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="coffee">
+                    <img src="https://placehold.co/300x200/8B4513/FFFFFF?text=Coffee" alt="Freshly Brewed Coffee" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-2">Freshly Brewed Coffee</h4>
+                    <p class="text-gray-700 mb-4 flex-grow">Aromatic and rich, the perfect companion to any sweet treat.</p>
+                    <p class="text-orange-600 font-bold text-xl mb-4">$3.00</p>
+                    <button class="add-to-cart-btn quantity-control-btn w-full px-6 py-3 text-lg rounded-full">Add to Cart</button>
+                </div>
+                <!-- Menu Item 2: Iced Latte -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center" data-item-id="iced-latte">
+                    <img src="https://placehold.co/300x200/ADD8E6/000000?text=Iced+Latte" alt="Iced Latte" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-2">Iced Latte</h4>
+                    <p class="text-gray-700 mb-4 flex-grow">Cool and creamy, a refreshing blend of espresso and milk over ice.</p>
+                    <p class="text-orange-600 font-bold text-xl mb-4">$4.25</p>
+                    <button class="add-to-cart-btn quantity-control-btn w-full px-6 py-3 text-lg rounded-full">Add to Cart</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Video Background Section -->
+    <!-- Our Story (Video Background) Section -->
     <section id="video-story" class="video-background-section">
-        <video autoplay loop muted playsinline>
-            <!-- Replaced with a sample video URL from Mixkit -->
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-baker-decorating-a-cake-in-the-kitchen-4091-large.mp4" type="video/mp4">
+        <video autoplay muted loop playsinline>
+            <!-- Replace with a suitable video URL for a bakery/dessert theme -->
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-baker-decorating-a-cake-in-a-bakery-4279-large.mp4" type="video/mp4" onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/000000/FFFFFF?text=Video+Not+Available';">
             Your browser does not support the video tag.
         </video>
         <div class="video-overlay"></div>
         <div class="video-content">
-            <h2 class="text-5xl md:text-6xl font-extrabold mb-4">Our Sweet Story in Motion</h2>
-            <p class="text-xl md:text-2xl leading-relaxed">
-                Step into our world and see the passion behind every pastry. From the finest ingredients
-                to the delicate finishing touches, we craft moments of joy, one dessert at a time.
+            <h2 class="text-4xl md:text-5xl font-bold mb-4">Our Sweet Story</h2>
+            <p class="text-lg md:text-xl mb-6">
+                At Sweet Delights Bakery, every creation tells a tale of passion, precision, and pure indulgence. From the finest ingredients to the loving hands that craft each dessert, we pour our hearts into bringing you moments of pure joy. Our journey began with a simple dream: to share the magic of homemade treats with the world.
             </p>
-            <p class="text-lg md:text-xl mt-4">
-                Experience the artistry, feel the warmth, and taste the dedication.
+            <p class="text-lg md:text-xl">
+                Join us in celebrating the art of baking, one delicious bite at a time.
             </p>
         </div>
     </section>
 
     <!-- About Us Section -->
-    <section id="about" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
+    <section id="about" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-8">
             <div class="md:w-1/2">
-                <!-- Updated with a sample bakery image -->
-                <img src="https://images.unsplash.com/photo-1582719508461-905c67379d03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" alt="Our Bakery" class="rounded-lg shadow-lg w-full h-auto object-cover">
+                <img src="https://placehold.co/600x400/D2691E/FFFFFF?text=About+Us+Image" alt="About Us" class="rounded-lg shadow-lg w-full h-auto object-cover">
             </div>
             <div class="md:w-1/2 text-center md:text-left">
-                <h2 class="text-4xl font-bold mb-6 section-title md:mx-0 mx-auto">About Our Sweet Story</h2>
-                <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                    Welcome to Sweet Delights Bakery, your destination for exquisite handcrafted desserts.
-                    Established in [Year], we pour our passion into every creation, using only the finest ingredients
-                    to bring you moments of pure indulgence.
+                <h2 class="text-4xl font-bold text-gray-800 mb-6 section-title">About Sweet Delights</h2>
+                <p class="text-gray-700 text-lg mb-4">
+                    Sweet Delights Bakery was founded on the principle that life is sweeter with a touch of homemade goodness. We specialize in crafting exquisite cakes, pastries, jar desserts, and savory treats using only the freshest, high-quality ingredients.
                 </p>
-                <p class="text-lg text-gray-700 leading-relaxed">
-                    From classic cookies to decadent jar cakes, each treat is baked with love and attention to detail.
-                    Come and experience the sweet difference!
+                <p class="text-gray-700 text-lg mb-4">
+                    Our dedicated team of bakers and pastry chefs work tirelessly to bring you innovative flavors and classic favorites, all made with love and attention to detail. We believe in creating memorable experiences through our delicious creations.
+                </p>
+                <p class="text-gray-700 text-lg">
+                    Whether it's a special occasion or a simple craving, Sweet Delights is here to make your day a little brighter.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Pre-order Customization Section -->
+    <!-- Pre-order Section -->
     <section id="pre-order" class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-12 section-title mx-auto">Custom Pre-orders</h2>
-            <div class="bg-gray-100 p-8 rounded-lg shadow-md max-w-2xl mx-auto">
-                <p class="text-lg text-gray-700 mb-6 text-center">
-                    Dreaming of a unique dessert? Let us bring your vision to life! Fill out the form below for custom orders.
-                    Please note that custom pre-orders require 1-2 days for preparation and delivery.
-                </p>
-                <form id="pre-order-form" action="#" method="POST">
-                    <div class="mb-4">
-                        <label for="custom-name" class="block text-gray-700 text-sm font-bold mb-2">Your Name</label>
-                        <input type="text" id="custom-name" name="custom-name" class="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Your Name" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="custom-email" class="block text-gray-700 text-sm font-bold mb-2">Your Email</label>
-                        <input type="email" id="custom-email" name="custom-email" class="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="your@email.com" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="custom-details" class="block text-gray-700 text-sm font-bold mb-2">Customization Details</label>
-                        <textarea id="custom-details" name="custom-details" rows="6" class="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Describe your custom dessert idea (e.g., 'A 2-tier chocolate cake with strawberry filling, decorated with blue frosting and edible flowers for a birthday party')." required></textarea>
-                    </div>
-                    <div class="mb-6">
-                        <label for="custom-quantity" class="block text-gray-700 text-sm font-bold mb-2">Quantity Needed</label>
-                        <input type="number" id="custom-quantity" name="custom-quantity" min="1" value="1" class="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" required>
-                    </div>
-                    <button type="submit" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full w-full focus:outline-none focus:shadow-outline transition duration-300 transform hover:scale-105">Submit Custom Order Request</button>
-                </form>
-            </div>
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold text-gray-800 mb-12 section-title mx-auto">Place Your Pre-Order</h2>
+            <p class="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
+                Planning a special event or just want to ensure you get your favorite treats? Pre-order your items now and pick them up at your convenience!
+            </p>
+            <form class="max-w-xl mx-auto bg-gray-100 p-8 rounded-lg shadow-md">
+                <div class="mb-6">
+                    <label for="name" class="block text-gray-700 text-left text-sm font-bold mb-2">Your Name:</label>
+                    <input type="text" id="name" name="name" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="John Doe">
+                </div>
+                <div class="mb-6">
+                    <label for="email" class="block text-gray-700 text-left text-sm font-bold mb-2">Your Email:</label>
+                    <input type="email" id="email" name="email" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="john.doe@example.com">
+                </div>
+                <div class="mb-6">
+                    <label for="order-details" class="block text-gray-700 text-left text-sm font-bold mb-2">Order Details:</label>
+                    <textarea id="order-details" name="order-details" rows="6" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="e.g., 1 Classic Chocolate Cake, 5 Chocolate Chip Cookies, Pick up on 2025-07-20 at 3 PM"></textarea>
+                </div>
+                <button type="submit" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 shadow-lg">Submit Pre-Order</button>
+            </form>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-12 section-title mx-auto">Contact Us</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <!-- Contact Information -->
-                <div class="bg-gray-100 p-8 rounded-lg shadow-md">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Get in Touch</h3>
-                    <p class="text-lg text-gray-700 mb-4 flex items-center"><svg class="w-6 h-6 mr-3 text-orange-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-10c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg> 456 Dessert Lane, Sweetville, SV 67890</p>
-                    <p class="text-lg text-gray-700 mb-4 flex items-center"><svg class="w-6 h-6 mr-3 text-orange-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.46.57 3.57.12.35.03.75-.24 1.02l-2.2 2.2z"/></svg> (555) 987-6543</p>
-                    <p class="text-lg text-gray-700 mb-4 flex items-center"><svg class="w-6 h-6 mr-3 text-orange-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> info@sweetdelights.com</p>
-                    <p class="text-lg text-gray-700 flex items-center"><svg class="w-6 h-6 mr-3 text-orange-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-.5 13.5h-1v-4h1v4zm0-5h-1V7h1v3z"/></svg> Tue-Sun: 10 AM - 8 PM | Mon: Closed</p>
+    <section id="contact" class="py-16 bg-gray-900 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-12 section-title mx-auto text-white">Get in Touch</h2>
+            <p class="text-lg mb-8 max-w-2xl mx-auto">
+                Have questions, special requests, or just want to say hello? We'd love to hear from you!
+            </p>
+            <div class="flex flex-col md:flex-row justify-center items-start gap-12">
+                <div class="flex flex-col items-center">
+                    <i class="fas fa-map-marker-alt text-orange-500 text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2">Visit Us</h3>
+                    <p class="text-gray-300">123 Bakery Lane,</p>
+                    <p class="text-gray-300">Sweet City, SW 12345</p>
                 </div>
-
-                <!-- Contact Form -->
-                <div class="bg-gray-100 p-8 rounded-lg shadow-md">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Send Us a Message</h3>
-                    <form action="#" method="POST">
-                        <div class="mb-4">
-                            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
-                            <input type="text" id="name" name="name" class="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Your Name">
-                        </div>
-                        <div class="mb-4">
-                            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
-                            <input type="email" id="email" name="email" class="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="your@email.com">
-                        </div>
-                        <div class="mb-6">
-                            <label for="message" class="block text-gray-700 text-sm font-bold mb-2">Message</label>
-                            <textarea id="message" name="message" rows="5" class="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Your message..."></textarea>
-                        </div>
-                        <button type="submit" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline transition duration-300 transform hover:scale-105">Send Message</button>
-                    </form>
+                <div class="flex flex-col items-center">
+                    <i class="fas fa-phone-alt text-orange-500 text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2">Call Us</h3>
+                    <p class="text-gray-300">+1 (555) 123-4567</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fas fa-envelope text-orange-500 text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2">Email Us</h3>
+                    <p class="text-gray-300">info@sweetdelights.com</p>
+                </div>
+            </div>
+            <div class="mt-12">
+                <h3 class="text-2xl font-semibold mb-4">Follow Us</h3>
+                <div class="flex justify-center space-x-6">
+                    <a href="#" class="text-gray-300 hover:text-orange-500 transition duration-300"><i class="fab fa-facebook-f text-3xl"></i></a>
+                    <a href="#" class="text-gray-300 hover:text-orange-500 transition duration-300"><i class="fab fa-instagram text-3xl"></i></a>
+                    <a href="#" class="text-gray-300 hover:text-orange-500 transition duration-300"><i class="fab fa-twitter text-3xl"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2023 Sweet Delights Bakery. All rights reserved.</p>
-            <div class="flex justify-center space-x-6 mt-4">
-                <a href="#" class="hover:text-white transition duration-300">Privacy Policy</a>
-                <a href="#" class="hover:text-white transition duration-300">Terms of Service</a>
-            </div>
+    <footer class="bg-gray-800 p-8 text-center text-gray-400">
+        <div class="container mx-auto">
+            <p>&copy; 2025 Sweet Delights Bakery. All rights reserved.</p>
         </div>
     </footer>
 
@@ -523,33 +488,18 @@
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <h2 class="text-3xl font-bold text-gray-800 mb-6">Your Cart</h2>
-            <div id="cart-items" class="mb-6">
-                <!-- Cart items will be listed here -->
-                <p class="text-gray-600" id="empty-cart-message">Your cart is empty.</p>
+            <div id="cart-items" class="mb-6 max-h-80 overflow-y-auto">
+                <!-- Cart items will be loaded here by JavaScript -->
+                <p class="text-gray-600 text-center" id="empty-cart-message">Your cart is empty.</p>
             </div>
-            <div class="flex justify-between items-center mb-6 border-t pt-4">
-                <p class="text-xl font-bold text-gray-800">Total:</p>
-                <p class="text-xl font-bold text-orange-600" id="cart-total">₹0.00</p>
+            <div class="flex justify-between items-center border-t pt-4">
+                <p class="text-xl font-bold text-gray-900">Total: <span id="cart-total">$0.00</span></p>
+                <button id="checkout-button" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full text-lg transition duration-300 transform hover:scale-105 shadow-lg">Checkout</button>
             </div>
-            <button id="checkout-button" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full w-full transition duration-300 transform hover:scale-105">Proceed to Order</button>
-            <p class="text-sm text-gray-500 mt-4 text-center">
-                For now, this is a simulated order. Please contact us directly to finalize your purchase.
-            </p>
         </div>
     </div>
 
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -558,230 +508,142 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Cart functionality
-        let cart = [];
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
 
+        // Cart functionality
         const cartButton = document.getElementById('cart-button');
         const cartButtonMobile = document.getElementById('cart-button-mobile');
-        const cartCountSpan = document.getElementById('cart-count');
-        const cartCountMobileSpan = document.getElementById('cart-count-mobile');
         const cartModal = document.getElementById('cart-modal');
         const closeButton = document.querySelector('.close-button');
         const cartItemsContainer = document.getElementById('cart-items');
         const cartTotalSpan = document.getElementById('cart-total');
+        const cartCountSpan = document.getElementById('cart-count');
+        const cartCountMobileSpan = document.getElementById('cart-count-mobile');
         const emptyCartMessage = document.getElementById('empty-cart-message');
-        const checkoutButton = document.getElementById('checkout-button');
 
+        let cart = JSON.parse(localStorage.getItem('cart')) || {}; // Load cart from local storage
+
+        // Function to update cart display
         function updateCartDisplay() {
             cartItemsContainer.innerHTML = ''; // Clear current items
             let total = 0;
+            let totalItems = 0;
 
-            if (cart.length === 0) {
+            if (Object.keys(cart).length === 0) {
                 emptyCartMessage.style.display = 'block';
             } else {
                 emptyCartMessage.style.display = 'none';
-                cart.forEach((item, index) => {
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add('flex', 'justify-between', 'items-center', 'py-2', 'border-b', 'border-gray-200');
-                    itemElement.innerHTML = `
-                        <span>${item.name} x ${item.quantity}</span>
-                        <span class="font-semibold">₹${(item.price * item.quantity).toFixed(2)}</span>
+                for (const itemId in cart) {
+                    const item = cart[itemId];
+                    const itemPrice = parseFloat(item.price);
+                    const itemTotal = itemPrice * item.quantity;
+                    total += itemTotal;
+                    totalItems += item.quantity;
+
+                    const cartItemDiv = document.createElement('div');
+                    cartItemDiv.className = 'flex justify-between items-center py-3 border-b last:border-b-0';
+                    cartItemDiv.innerHTML = `
+                        <div class="flex items-center space-x-4">
+                            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-md">
+                            <div>
+                                <p class="font-semibold text-gray-800">${item.name}</p>
+                                <p class="text-gray-600 text-sm">$${itemPrice.toFixed(2)} each</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <button class="qty-btn bg-orange-400 hover:bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-xl" data-item-id="${itemId}" data-action="decrease">-</button>
+                            <span class="qty-display text-gray-800 font-medium text-lg">${item.quantity}</span>
+                            <button class="qty-btn bg-orange-400 hover:bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-xl" data-item-id="${itemId}" data-action="increase">+</button>
+                            <button class="remove-from-cart-btn text-red-500 hover:text-red-700 ml-4" data-item-id="${itemId}">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
                     `;
-                    cartItemsContainer.appendChild(itemElement);
-                    total += item.price * item.quantity;
-                });
-            }
-
-            cartTotalSpan.textContent = `₹${total.toFixed(2)}`;
-            cartCountSpan.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCountMobileSpan.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-        }
-
-        // Function to update the quantity display on the menu item card
-        function updateMenuItemQuantityDisplay(itemId, quantity) {
-            const menuItemCard = document.querySelector(`.menu-item-card[data-item-id="${itemId}"]`);
-            if (menuItemCard) {
-                const qtyDisplay = menuItemCard.querySelector('.qty-display');
-                if (qtyDisplay) {
-                    qtyDisplay.textContent = quantity;
+                    cartItemsContainer.appendChild(cartItemDiv);
                 }
             }
+
+            cartTotalSpan.textContent = `$${total.toFixed(2)}`;
+            cartCountSpan.textContent = totalItems;
+            cartCountMobileSpan.textContent = totalItems;
+
+            localStorage.setItem('cart', JSON.stringify(cart)); // Save cart to local storage
         }
 
-        // Function to toggle between "Add to Cart" button and quantity controls
-        function toggleQuantityControls(itemId, showControls) {
-            const menuItemCard = document.querySelector(`.menu-item-card[data-item-id="${itemId}"]`);
-            if (menuItemCard) {
-                const addToCartBtn = menuItemCard.querySelector('.add-to-cart-btn');
-                const quantityControls = menuItemCard.querySelector('.quantity-controls');
-
-                if (showControls) {
-                    addToCartBtn.classList.add('hidden');
-                    quantityControls.classList.remove('hidden');
-                    quantityControls.classList.add('flex'); // Ensure flex display
-                } else {
-                    addToCartBtn.classList.remove('hidden');
-                    quantityControls.classList.add('hidden');
-                    quantityControls.classList.remove('flex'); // Remove flex display
-                }
-            }
-        }
-
-        // Add item to cart or increase quantity
-        function addItemToCart(itemId, itemName, itemPrice) {
-            let existingItem = cart.find(item => item.id === itemId);
-
-            if (existingItem) {
-                existingItem.quantity++;
-            } else {
-                existingItem = { id: itemId, name: itemName, price: itemPrice, quantity: 1 };
-                cart.push(existingItem);
-            }
-            updateMenuItemQuantityDisplay(itemId, existingItem.quantity);
-            updateCartDisplay();
-            toggleQuantityControls(itemId, true); // Show quantity controls
-        }
-
-        // Decrease item quantity
-        function decreaseItemQuantity(itemId) {
-            let existingItem = cart.find(item => item.id === itemId);
-
-            if (existingItem) {
-                existingItem.quantity--;
-                if (existingItem.quantity <= 0) {
-                    cart = cart.filter(item => item.id !== itemId); // Remove item if quantity is 0 or less
-                    toggleQuantityControls(itemId, false); // Hide controls, show "Add to Cart"
-                }
-                updateMenuItemQuantityDisplay(itemId, existingItem.quantity);
-                updateCartDisplay();
-            }
-        }
-
-        // Increase item quantity
-        function increaseItemQuantity(itemId) {
-            let existingItem = cart.find(item => item.id === itemId);
-
-            if (existingItem) {
-                existingItem.quantity++;
-                updateMenuItemQuantityDisplay(itemId, existingItem.quantity);
-                updateCartDisplay();
-            }
-        }
-
-
-        // Event listeners for "Add to Cart" buttons
+        // Add to cart event listener
         document.querySelectorAll('.add-to-cart-btn').forEach(button => {
             button.addEventListener('click', (event) => {
-                const menuItemCard = event.target.closest('.menu-item-card');
-                const itemId = menuItemCard.dataset.itemId;
-                const itemName = menuItemCard.querySelector('[data-name]').dataset.name;
-                const itemPrice = parseFloat(menuItemCard.querySelector('[data-price]').dataset.price);
-                addItemToCart(itemId, itemName, itemPrice);
+                const card = event.target.closest('.menu-item-card');
+                const itemId = card.dataset.itemId;
+                const itemName = card.querySelector('h4').textContent;
+                const itemPrice = parseFloat(card.querySelector('.text-orange-600').textContent.replace('$', ''));
+                const itemImage = card.querySelector('img').src;
+
+                if (cart[itemId]) {
+                    cart[itemId].quantity++;
+                } else {
+                    cart[itemId] = {
+                        name: itemName,
+                        price: itemPrice,
+                        image: itemImage,
+                        quantity: 1
+                    };
+                }
+                updateCartDisplay();
             });
         });
 
-        // Event listeners for quantity control buttons (delegated to document for dynamic elements)
-        document.addEventListener('click', (event) => {
-            if (event.target.classList.contains('decrease-qty')) {
-                const itemId = event.target.dataset.itemId;
-                decreaseItemQuantity(itemId);
-            } else if (event.target.classList.contains('increase-qty')) {
-                const itemId = event.target.dataset.itemId;
-                increaseItemQuantity(itemId);
+        // Quantity control and remove from cart event listener (delegated)
+        cartItemsContainer.addEventListener('click', (event) => {
+            const target = event.target;
+            const itemId = target.dataset.itemId;
+
+            if (target.classList.contains('qty-btn')) {
+                const action = target.dataset.action;
+                if (action === 'increase') {
+                    cart[itemId].quantity++;
+                } else if (action === 'decrease') {
+                    cart[itemId].quantity--;
+                    if (cart[itemId].quantity <= 0) {
+                        delete cart[itemId]; // Remove item if quantity is 0 or less
+                    }
+                }
+                updateCartDisplay();
+            } else if (target.closest('.remove-from-cart-btn')) {
+                delete cart[itemId];
+                updateCartDisplay();
             }
         });
 
-
-        // Open cart modal
+        // Show cart modal
         cartButton.addEventListener('click', () => {
             cartModal.style.display = 'flex';
+            updateCartDisplay(); // Ensure cart is updated when opened
         });
         cartButtonMobile.addEventListener('click', () => {
             cartModal.style.display = 'flex';
+            updateCartDisplay(); // Ensure cart is updated when opened
         });
 
-        // Close cart modal
+        // Hide cart modal
         closeButton.addEventListener('click', () => {
             cartModal.style.display = 'none';
         });
 
-        // Close modal when clicking outside of it
+        // Hide modal when clicking outside of it
         window.addEventListener('click', (event) => {
             if (event.target === cartModal) {
                 cartModal.style.display = 'none';
             }
         });
 
-        // Handle checkout button click (for now, a simple message)
-        checkoutButton.addEventListener('click', () => {
-            if (cart.length > 0) {
-                let orderSummary = "Your Order:\n";
-                cart.forEach(item => {
-                    orderSummary += `${item.name} x ${item.quantity} (₹${(item.price * item.quantity).toFixed(2)})\n`;
-                });
-                orderSummary += `\nTotal: ₹${cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)}`;
-
-                // In a real application, you would send this to a server
-                // For now, we'll simulate a message box
-                const messageBox = document.createElement('div');
-                messageBox.classList.add('fixed', 'top-1/2', 'left-1/2', 'transform', '-translate-x-1/2', '-translate-y-1/2', 'bg-white', 'p-8', 'rounded-lg', 'shadow-xl', 'z-20', 'text-center');
-                messageBox.innerHTML = `
-                    <h3 class="text-2xl font-bold mb-4">Order Placed (Simulated)</h3>
-                    <p class="mb-4 whitespace-pre-wrap">${orderSummary}</p>
-                    <p class="text-lg text-gray-700 mb-6">Thank you for your order! We'll contact you shortly to confirm and arrange pickup/delivery.</p>
-                    <button class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full" onclick="this.parentNode.remove();">Close</button>
-                `;
-                document.body.appendChild(messageBox);
-                cart = []; // Clear cart after simulated order
-                // Reset all quantity controls on menu items
-                document.querySelectorAll('.menu-item-card').forEach(card => {
-                    const itemId = card.dataset.itemId;
-                    toggleQuantityControls(itemId, false); // Hide controls, show "Add to Cart"
-                    updateMenuItemQuantityDisplay(itemId, 1); // Reset display to 1 (though hidden)
-                });
-                updateCartDisplay();
-                cartModal.style.display = 'none'; // Close the cart modal
-            } else {
-                const messageBox = document.createElement('div');
-                messageBox.classList.add('fixed', 'top-1/2', 'left-1/2', 'transform', '-translate-x-1/2', '-translate-y-1/2', 'bg-white', 'p-8', 'rounded-lg', 'shadow-xl', 'z-20', 'text-center');
-                messageBox.innerHTML = `
-                    <h3 class="text-2xl font-bold mb-4">Cart is Empty</h3>
-                    <p class="text-lg text-gray-700 mb-6">Please add items to your cart before proceeding to order.</p>
-                    <button class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full" onclick="this.parentNode.remove();">Close</button>
-                `;
-                document.body.appendChild(messageBox);
-            }
-        });
-
-        // Handle custom pre-order form submission
-        document.getElementById('pre-order-form').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent actual form submission
-
-            const name = document.getElementById('custom-name').value;
-            const email = document.getElementById('custom-email').value;
-            const details = document.getElementById('custom-details').value;
-            const quantity = document.getElementById('custom-quantity').value;
-
-            const preOrderSummary = `Custom Pre-order Request:\n\nName: ${name}\nEmail: ${email}\nCustomization: ${details}\nQuantity: ${quantity}\n\nWe will contact you within 1-2 days to confirm your order and discuss delivery details.`;
-
-            const messageBox = document.createElement('div');
-            messageBox.classList.add('fixed', 'top-1/2', 'left-1/2', 'transform', '-translate-x-1/2', '-translate-y-1/2', 'bg-white', 'p-8', 'rounded-lg', 'shadow-xl', 'z-20', 'text-center');
-            messageBox.innerHTML = `
-                <h3 class="text-2xl font-bold mb-4">Custom Order Request Sent!</h3>
-                <p class="mb-4 whitespace-pre-wrap">${preOrderSummary}</p>
-                <button class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full" onclick="this.parentNode.remove();">Close</button>
-            `;
-            document.body.appendChild(messageBox);
-
-            // Optionally clear the form
-            this.reset();
-        });
-
-
-        // Initial cart display when the page loads
-        window.onload = () => {
-            updateCartDisplay(); // Initialize cart count on load
-        };
+        // Initial display update on page load
+        updateCartDisplay();
     </script>
 </body>
 </html>
