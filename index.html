@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Delights Bakery</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Cart Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f8f8; /* Light gray background */
+        }
+        .hero-section {
+            /* Updated with a sample dessert image for the hero background */
+            background-image: url('https://images.unsplash.com/photo-1558961363-fa1fdf82fad3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50%;
+            height: 3px;
+            background-color: #D2691E; /* Chocolate brown accent */
+            border-radius: 5px;
+        }
+        .menu-item-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            position: relative; /* Needed for out-of-stock overlay */
+        }
+        .menu-item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .out-of-stock {
+            opacity: 0.6;
+            pointer-events: none; /* Disable clicks on the entire card */
+        }
+        .out-of-stock::before {
+            content: 'Out of Stock';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+            border-radius: 0.5rem;
+            z-index: 10;
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 100; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Video Background Section */
+        .video-background-section {
+            position: relative;
+            width: 100%;
+            height: 600px; /* Adjust height as needed */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        .video-background-section video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            z-index: 0;
+        }
+        .video-content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            max-width: 800px;
+            margin: auto;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-900 p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-white text-2xl font-bold rounded-md hover:text-orange-400 transition duration-300">Sweet Delights</a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#home" class="text-gray-300 hover:text-white transition duration-300 px-3 py-2 rounded-md">Home</a>
+                <a href="#menu" class="text-gray-300 hover:text-white transition duration-300 px-3 py-2 rounded-md">Menu</a>
+                <a href="#video-story" class="text-gray-300 hover:text-white transition duration-300 px-3 py-2 rounded-md">Our Story</a>
+                <a href="#about" class="text-gray-300 hover:text-white transition duration-300 px-3 py-2 rounded-md">About Us</a>
+                <a href="#pre-order" class="text-gray-300 hover:text-white transition duration-300 px-3 py-2 rounded-md">Pre-order</a>
+                <a href="#contact" class="text-gray-300 hover:text-white transition duration-300 px-3 py-2 rounded-md">Contact</a>
+                <!-- Cart Button -->
+                <button id="cart-button" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full flex items-center space-x-2 transition duration-300">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </button>
+            </div>
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center space-x-4">
+                <button id="cart-button-mobile" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full flex items-center space-x-2 transition duration-300">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count-mobile">0</span>
+                </button>
+                <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <a href="#home" class="block text-gray-300 hover:text-white px-4 py-2 rounded-md">Home</a>
+            <a href="#menu" class="block text-gray-300 hover:text-white px-4 py-2 rounded-md">Menu</a>
+            <a href="#video-story" class="block text-gray-300 hover:text-white px-4 py-2 rounded-md">Our Story</a>
+            <a href="#about" class="block text-gray-300 hover:text-white px-4 py-2 rounded-md">About Us</a>
+            <a href="#pre-order" class="block text-gray-300 hover:text-white px-4 py-2 rounded-md">Pre-order</a>
+            <a href="#contact" class="block text-gray-300 hover:text-white px-4 py-2 rounded-md">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero-section h-screen flex items-center justify-center text-center">
+        <div class="p-8 bg-black bg-opacity-50 rounded-lg shadow-xl max-w-2xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-4 leading-tight">Indulge Your Sweet Tooth</h1>
+            <p class="text-xl md:text-2xl mb-8">Handcrafted desserts for every craving.</p>
+            <a href="#menu" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 shadow-lg">Explore Our Delights</a>
+        </div>
+    </header>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 section-title mx-auto">Our Delicious Menu</h2>
+
+            <!-- Jar Cakes & Puddings -->
+            <h3 class="text-3xl font-semibold text-gray-800 mb-6 mt-10">Jar Cakes & Puddings</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-limit="2">
+                <!-- Menu Item 1 -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://images.unsplash.com/photo-1616439246830-4e2e2e2e2e2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Red Velvet Jar Cake" class="w-36 h-36 object-cover rounded-full mb-4">
+                    <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Red Velvet Jar Cake">Red Velvet Jar Cake</h4>
+                    <p class="text-gray-600 mb-4">Layers of moist red velvet cake and creamy cheese frosting.</p>
+                    <span class="text-orange-600 font-semibold text-lg mb-4" data-price="149.50">₹149.50</span>
+                    <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Add to Cart</button>
+                </div>
+                <!-- Menu Item 2 -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://images.unsplash.com/photo-1542826476-8a9d3a7d4a4d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Tiramisu Jar" class="w-36 h-36 object-cover rounded-full mb-4">
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Classic Tiramisu Jar">Classic Tiramisu Jar</h4>
+                        <p class="text-gray-600 mb-4">Espresso-soaked ladyfingers with mascarpone cream and cocoa.</p>
+                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="161.00">₹161.00</span>
+                        <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Menu Item 3 (Out of Stock Example) -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://images.unsplash.com/photo-1579735414322-297d2e2e2e2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Mango Panna Cotta" class="w-36 h-36 object-cover rounded-full mb-4">
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Mango Panna Cotta">Mango Panna Cotta</h4>
+                        <p class="text-gray-600 mb-4">Silky smooth Italian pudding with fresh mango puree.</p>
+                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="155.25">₹155.25</span>
+                        <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cookies & Pastries -->
+            <h3 class="text-3xl font-semibold text-gray-800 mb-6 mt-10">Cookies & Pastries</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-limit="3">
+                <!-- Menu Item 4 -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://images.unsplash.com/photo-1598214886806-c87d7b7e7e7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Chocolate Chip Cookie" class="w-36 h-36 object-cover rounded-full mb-4">
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Giant Chocolate Chip Cookie">Giant Chocolate Chip Cookie</h4>
+                        <p class="text-gray-600 mb-4">Warm, gooey, and loaded with chocolate chips.</p>
+                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="80.50">₹80.50</span>
+                        <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Menu Item 5 -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://images.unsplash.com/photo-1563805096-7e7e7e7e7e7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Almond Croissant" class="w-36 h-36 object-cover rounded-full mb-4">
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Flaky Almond Croissant">Flaky Almond Croissant</h4>
+                        <p class="text-gray-600 mb-4">Buttery croissant filled with almond cream and toasted almonds.</p>
+                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="97.75">₹97.75</span>
+                        <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Menu Item 6 -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://images.unsplash.com/photo-1582236675545-2e2e2e2e2e2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Oatmeal Raisin Cookie" class="w-36 h-36 object-cover rounded-full mb-4">
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Soft Oatmeal Raisin Cookie">Soft Oatmeal Raisin Cookie</h4>
+                        <p class="text-gray-600 mb-4">Chewy oatmeal cookies with plump raisins and a hint of cinnamon.</p>
+                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="69.00">₹69.00</span>
+                        <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Menu Item 7 (Out of Stock Example) -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://images.unsplash.com/photo-1596791240400-2e2e2e2e2e2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Blueberry Muffin" class="w-36 h-36 object-cover rounded-full mb-4">
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Fresh Blueberry Muffin">Fresh Blueberry Muffin</h4>
+                        <p class="text-gray-600 mb-4">Light and fluffy muffin bursting with fresh blueberries.</p>
+                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="86.25">₹86.25</span>
+                        <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Specialty Desserts -->
+            <h3 class="text-3xl font-semibold text-gray-800 mb-6 mt-10">Specialty Desserts</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-limit="1">
+                <!-- Menu Item 8 -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://images.unsplash.com/photo-1560787313-2e2e2e2e2e2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Molten Lava Cake" class="w-36 h-36 object-cover rounded-full mb-4">
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="Molten Chocolate Lava Cake">Molten Chocolate Lava Cake</h4>
+                        <p class="text-gray-600 mb-4">Rich chocolate cake with a warm, gooey center, served with vanilla bean ice cream.</p>
+                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="218.50">₹218.50</span>
+                        <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Menu Item 9 (Out of Stock Example) -->
+                <div class="menu-item-card bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <img src="https://images.unsplash.com/photo-1567620905765-e2e2e2e2e2e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80" alt="Cheesecake" class="w-36 h-36 object-cover rounded-full mb-4">
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2" data-name="New York Style Cheesecake">New York Style Cheesecake</h4>
+                        <p class="text-gray-600 mb-4">Creamy cheesecake on a graham cracker crust, topped with berry compote.</p>
+                        <span class="text-orange-600 font-semibold text-lg mb-4" data-price="201.25">₹201.25</span>
+                        <button class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Background Section -->
+    <section id="video-story" class="video-background-section">
+        <video autoplay loop muted playsinline>
+            <!-- Replaced with a sample video URL from Mixkit -->
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-baker-decorating-a-cake-in-the-kitchen-4091-large.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+        <div class="video-content">
+            <h2 class="text-5xl md:text-6xl font-extrabold mb-4">Our Sweet Story in Motion</h2>
+            <p class="text-xl md:text-2xl leading-relaxed">
+                Step into our world and see the passion behind every pastry. From the finest ingredients
+                to the delicate finishing touches, we craft moments of joy, one dessert at a time.
+            </p>
+            <p class="text-lg md:text-xl mt-4">
+                Experience the artistry, feel the warmth, and taste the dedication.
+            </p>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <!-- Updated with a sample bakery image -->
+                <img src="https://images.unsplash.com/photo-1582719508461-905c67379d03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" alt="Our Bakery" class="rounded-lg shadow-lg w-full h-auto object-cover">
+            </div>
+            <div class="md:w-1/2 text-center md:text-left">
+                <h2 class="text-4xl font-bold mb-6 section-title md:mx-0 mx-auto">About Our Sweet Story</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                    Welcome to Sweet Delights Bakery, your destination for exquisite handcrafted desserts.
+                    Established in [Year], we pour our passion into every creation, using only the finest ingredients
+                    to bring you moments of pure indulgence.
+                </p>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    From classic cookies to decadent jar cakes, each treat is baked with love and attention to detail.
+                    Come and experience the sweet difference!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pre-order Customization Section -->
+    <section id="pre-order" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 section-title mx-auto">Custom Pre-orders</h2>
+            <div class="bg-gray-100 p-8 rounded-lg shadow-md max-w-2xl mx-auto">
+                <p class="text-lg text-gray-700 mb-6 text-center">
+                    Dreaming of a unique dessert? Let us bring your vision to life! Fill out the form below for custom orders.
+                    Please note that custom pre-orders require 1-2 days for preparation and delivery.
+                </p>
+                <form id="pre-order-form" action="#" method="POST">
+                    <div class="mb-4">
+                        <label for="custom-name" class="block text-gray-700 text-sm font-bold mb-2">Your Name</label>
+                        <input type="text" id="custom-name" name="custom-name" class="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Your Name" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="custom-email" class="block text-gray-700 text-sm font-bold mb-2">Your Email</label>
+                        <input type="email" id="custom-email" name="custom-email" class="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="your@email.com" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="custom-details" class="block text-gray-700 text-sm font-bold mb-2">Customization Details</label>
+                        <textarea id="custom-details" name="custom-details" rows="6" class="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Describe your custom dessert idea (e.g., 'A 2-tier chocolate cake with strawberry filling, decorated with blue frosting and edible flowers for a birthday party')." required></textarea>
+                    </div>
+                    <div class="mb-6">
+                        <label for="custom-quantity" class="block text-gray-700 text-sm font-bold mb-2">Quantity Needed</label>
+                        <input type="number" id="custom-quantity" name="custom-quantity" min="1" value="1" class="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                    </div>
+                    <button type="submit" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full w-full focus:outline-none focus:shadow-outline transition duration-300 transform hover:scale-105">Submit Custom Order Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 section-title mx-auto">Contact Us</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Contact Information -->
+                <div class="bg-gray-100 p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Get in Touch</h3>
+                    <p class="text-lg text-gray-700 mb-4 flex items-center"><svg class="w-6 h-6 mr-3 text-orange-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-10c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg> 456 Dessert Lane, Sweetville, SV 67890</p>
+                    <p class="text-lg text-gray-700 mb-4 flex items-center"><svg class="w-6 h-6 mr-3 text-orange-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.46.57 3.57.12.35.03.75-.24 1.02l-2.2 2.2z"/></svg> (555) 987-6543</p>
+                    <p class="text-lg text-gray-700 mb-4 flex items-center"><svg class="w-6 h-6 mr-3 text-orange-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> info@sweetdelights.com</p>
+                    <p class="text-lg text-gray-700 flex items-center"><svg class="w-6 h-6 mr-3 text-orange-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-.5 13.5h-1v-4h1v4zm0-5h-1V7h1v3z"/></svg> Tue-Sun: 10 AM - 8 PM | Mon: Closed</p>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-gray-100 p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Send Us a Message</h3>
+                    <form action="#" method="POST">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                            <input type="text" id="name" name="name" class="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Your Name">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                            <input type="email" id="email" name="email" class="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="your@email.com">
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 text-sm font-bold mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" class="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Your message..."></textarea>
+                        </div>
+                        <button type="submit" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline transition duration-300 transform hover:scale-105">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Sweet Delights Bakery. All rights reserved.</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="#" class="hover:text-white transition duration-300">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition duration-300">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Your Cart</h2>
+            <div id="cart-items" class="mb-6">
+                <!-- Cart items will be listed here -->
+                <p class="text-gray-600" id="empty-cart-message">Your cart is empty.</p>
+            </div>
+            <div class="flex justify-between items-center mb-6 border-t pt-4">
+                <p class="text-xl font-bold text-gray-800">Total:</p>
+                <p class="text-xl font-bold text-orange-600" id="cart-total">₹0.00</p>
+            </div>
+            <button id="checkout-button" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full w-full transition duration-300 transform hover:scale-105">Proceed to Order</button>
+            <p class="text-sm text-gray-500 mt-4 text-center">
+                For now, this is a simulated order. Please contact us directly to finalize your purchase.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Function to apply out-of-stock logic
+        function applyStockLimits() {
+            // Get all menu sections that have a data-limit attribute
+            const menuSections = document.querySelectorAll('div[data-limit]');
+
+            menuSections.forEach(section => {
+                const limit = parseInt(section.dataset.limit);
+                const menuItems = section.querySelectorAll('.menu-item-card');
+
+                menuItems.forEach((item, index) => {
+                    const addButton = item.querySelector('.add-to-cart-btn');
+                    if (index >= limit) {
+                        item.classList.add('out-of-stock');
+                        if (addButton) {
+                            addButton.disabled = true;
+                            addButton.textContent = 'Out of Stock';
+                            addButton.classList.remove('bg-orange-500', 'hover:bg-orange-600');
+                            addButton.classList.add('bg-gray-400', 'cursor-not-allowed');
+                        }
+                    } else {
+                        item.classList.remove('out-of-stock');
+                        if (addButton) {
+                            addButton.disabled = false;
+                            addButton.textContent = 'Add to Cart';
+                            addButton.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                            addButton.classList.add('bg-orange-500', 'hover:bg-orange-600');
+                        }
+                    }
+                });
+            });
+        }
+
+        // Cart functionality
+        let cart = [];
+
+        const cartButton = document.getElementById('cart-button');
+        const cartButtonMobile = document.getElementById('cart-button-mobile');
+        const cartCountSpan = document.getElementById('cart-count');
+        const cartCountMobileSpan = document.getElementById('cart-count-mobile');
+        const cartModal = document.getElementById('cart-modal');
+        const closeButton = document.querySelector('.close-button');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotalSpan = document.getElementById('cart-total');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const checkoutButton = document.getElementById('checkout-button');
+
+        function updateCartDisplay() {
+            cartItemsContainer.innerHTML = ''; // Clear current items
+            let total = 0;
+
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+            } else {
+                emptyCartMessage.style.display = 'none';
+                cart.forEach((item, index) => {
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('flex', 'justify-between', 'items-center', 'py-2', 'border-b', 'border-gray-200');
+                    itemElement.innerHTML = `
+                        <span>${item.name} x ${item.quantity}</span>
+                        <span class="font-semibold">₹${(item.price * item.quantity).toFixed(2)}</span>
+                    `;
+                    cartItemsContainer.appendChild(itemElement);
+                    total += item.price * item.quantity;
+                });
+            }
+
+            cartTotalSpan.textContent = `₹${total.toFixed(2)}`;
+            cartCountSpan.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCountMobileSpan.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+        }
+
+        function addToCart(itemName, itemPrice) {
+            const existingItem = cart.find(item => item.name === itemName);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ name: itemName, price: itemPrice, quantity: 1 });
+            }
+            updateCartDisplay();
+        }
+
+        // Event listeners for "Add to Cart" buttons
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const menuItemCard = event.target.closest('.menu-item-card');
+                const itemName = menuItemCard.querySelector('[data-name]').dataset.name;
+                const itemPrice = parseFloat(menuItemCard.querySelector('[data-price]').dataset.price);
+                addToCart(itemName, itemPrice);
+            });
+        });
+
+        // Open cart modal
+        cartButton.addEventListener('click', () => {
+            cartModal.style.display = 'flex';
+        });
+        cartButtonMobile.addEventListener('click', () => {
+            cartModal.style.display = 'flex';
+        });
+
+        // Close cart modal
+        closeButton.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', (event) => {
+            if (event.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+        });
+
+        // Handle checkout button click (for now, a simple message)
+        checkoutButton.addEventListener('click', () => {
+            if (cart.length > 0) {
+                let orderSummary = "Your Order:\n";
+                cart.forEach(item => {
+                    orderSummary += `${item.name} x ${item.quantity} (₹${(item.price * item.quantity).toFixed(2)})\n`;
+                });
+                orderSummary += `\nTotal: ₹${cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)}`;
+
+                // In a real application, you would send this to a server
+                // For now, we'll simulate a message box
+                const messageBox = document.createElement('div');
+                messageBox.classList.add('fixed', 'top-1/2', 'left-1/2', 'transform', '-translate-x-1/2', '-translate-y-1/2', 'bg-white', 'p-8', 'rounded-lg', 'shadow-xl', 'z-20', 'text-center');
+                messageBox.innerHTML = `
+                    <h3 class="text-2xl font-bold mb-4">Order Placed (Simulated)</h3>
+                    <p class="mb-4 whitespace-pre-wrap">${orderSummary}</p>
+                    <p class="text-lg text-gray-700 mb-6">Thank you for your order! We'll contact you shortly to confirm and arrange pickup/delivery.</p>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full" onclick="this.parentNode.remove();">Close</button>
+                `;
+                document.body.appendChild(messageBox);
+                cart = []; // Clear cart after simulated order
+                updateCartDisplay();
+                cartModal.style.display = 'none'; // Close the cart modal
+            } else {
+                const messageBox = document.createElement('div');
+                messageBox.classList.add('fixed', 'top-1/2', 'left-1/2', 'transform', '-translate-x-1/2', '-translate-y-1/2', 'bg-white', 'p-8', 'rounded-lg', 'shadow-xl', 'z-20', 'text-center');
+                messageBox.innerHTML = `
+                    <h3 class="text-2xl font-bold mb-4">Cart is Empty</h3>
+                    <p class="text-lg text-gray-700 mb-6">Please add items to your cart before proceeding to order.</p>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full" onclick="this.parentNode.remove();">Close</button>
+                `;
+                document.body.appendChild(messageBox);
+            }
+        });
+
+        // Handle custom pre-order form submission
+        document.getElementById('pre-order-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent actual form submission
+
+            const name = document.getElementById('custom-name').value;
+            const email = document.getElementById('custom-email').value;
+            const details = document.getElementById('custom-details').value;
+            const quantity = document.getElementById('custom-quantity').value;
+
+            const preOrderSummary = `Custom Pre-order Request:\n\nName: ${name}\nEmail: ${email}\nCustomization: ${details}\nQuantity: ${quantity}\n\nWe will contact you within 1-2 days to confirm your order and discuss delivery details.`;
+
+            const messageBox = document.createElement('div');
+            messageBox.classList.add('fixed', 'top-1/2', 'left-1/2', 'transform', '-translate-x-1/2', '-translate-y-1/2', 'bg-white', 'p-8', 'rounded-lg', 'shadow-xl', 'z-20', 'text-center');
+            messageBox.innerHTML = `
+                <h3 class="text-2xl font-bold mb-4">Custom Order Request Sent!</h3>
+                <p class="mb-4 whitespace-pre-wrap">${preOrderSummary}</p>
+                <button class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full" onclick="this.parentNode.remove();">Close</button>
+            `;
+            document.body.appendChild(messageBox);
+
+            // Optionally clear the form
+            this.reset();
+        });
+
+
+        // Apply stock limits and initial cart display when the page loads
+        window.onload = () => {
+            applyStockLimits();
+            updateCartDisplay(); // Initialize cart count on load
+        };
+    </script>
+</body>
+</html>
